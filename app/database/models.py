@@ -27,6 +27,7 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     tg_id: Mapped[int] = mapped_column(BigInteger)
     tg_username: Mapped[str] = mapped_column(String(100))
+    count_money: Mapped[int] = mapped_column(BigInteger)
 
 
 class Category(Base):
@@ -44,6 +45,7 @@ class Item(Base):
     description: Mapped[str] = mapped_column(String(120))
     prise: Mapped[int] = mapped_column()
     category: Mapped[int] = mapped_column(ForeignKey('categories.id'))
+    count: Mapped[int] = mapped_column()
 
 async def astnc_name():
     async with engine.begin() as conn:

@@ -1,19 +1,16 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from app.database.requests import get_cat, get_cat_Item
+from app.database.requests import get_cat, get_cat_Item, get_item
 
 main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Регистрация')],
-                                     [KeyboardButton(text='Битва')],
-                                     [KeyboardButton(text='oi oi oi'),
-                                      KeyboardButton(text='Фурри')],
-                                     [KeyboardButton(text='Магазин Субарика')],
-                                     [KeyboardButton(text='Листинг хомяка')]],
+                                     [KeyboardButton(text='Топ инвесторов')],
+                                     [KeyboardButton(text='Акции')]],
                            resize_keyboard=True,
                            input_field_placeholder='Выбри пж')
 
-war = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Hamster Combat', callback_data='Sigma')],
-                                            [InlineKeyboardButton(text='чозабрето', callback_data='poop')]])
+'''war = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Hamster Combat', callback_data='Sigma')],
+                                            [InlineKeyboardButton(text='чозабрето', callback_data='poop')]])'''
 
 
 #IDphoto = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text=f'{1}')]])# for i in range(1, phId + 1))
@@ -37,8 +34,12 @@ async def items(category_id):
     keybord.add(InlineKeyboardButton(text='К категориям', callback_data='to_cats'))
     return keybord.adjust(2).as_markup()
 
-home2 = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='На главную', callback_data='to_main'),
-                                              InlineKeyboardButton(text='К категориям', callback_data='to_cats')]])
+async def buy_sell(item_id):
+    item = await get_item(item_id)
+    keybord = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='На главную', callback_data='to_main'),
+                                                     InlineKeyboardButton(text='К категориям', callback_data='to_cats')],
+                                                    [InlineKeyboardButton(text='Купить', callback_data=f'buy_{item.id}')]])
+    return keybord
 
 def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()

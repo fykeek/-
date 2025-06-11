@@ -2,7 +2,7 @@ import os
 import asyncio
 from aiogram import Bot, Dispatcher, F
 from dotenv import load_dotenv
-from app.handlers import router, f_users
+from app.handlers import router
 from app.database.models import astnc_name
 async def main():
     await astnc_name()
@@ -18,4 +18,3 @@ if __name__ == '__main__':
         asyncio.run((main()))
     except KeyboardInterrupt:
         print('okay')
-        f_users.close()
